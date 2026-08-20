@@ -1,0 +1,34 @@
+/* Thread DS — Layout, breakpoints, motion & image tokens. */
+:root{
+  /* Container max widths */
+  --container-max-xx-sm: 360px;
+  --container-max-x-sm: 375px;
+  --container-max-sm: 390px;
+  --container-max-md: 440px;
+  --container-max-lg: 768px;
+  --container-max-x-lg: 1024px;
+  --container-max-xx-lg: 1200px;
+
+  /* Breakpoints */
+  --breakpoint-xxx-sm: 300px;
+  --breakpoint-xx-sm: 360px;
+  --breakpoint-x-sm: 375px;
+  --breakpoint-sm: 390px;
+  --breakpoint-m: 440px;
+  --breakpoint-lg: 620px;
+  --breakpoint-x-lg: 768px;
+  --breakpoint-xx-lg: 1024px;
+  --breakpoint-xxx-lg: 1440px;
+
+  /* Image aspect ratios */
+  --aspect-square: 1 / 1; /* @kind other */
+  --aspect-product: 3 / 4; /* @kind other */ /* ASOS product imagery */
+  --aspect-landscape: 4 / 3; /* @kind other */
+  --aspect-wide: 16 / 9; /* @kind other */
+
+  /* Motion */
+  --motion-translate-hover: 4px;
+  --motion-duration-fast: 120ms; /* @kind other */
+  --motion-duration-base: 200ms; /* @kind other */
+  --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1); /* @kind other */
+}
