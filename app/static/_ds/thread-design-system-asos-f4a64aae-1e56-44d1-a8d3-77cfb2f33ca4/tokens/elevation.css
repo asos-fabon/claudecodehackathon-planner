@@ -1,0 +1,18 @@
+/* Thread DS — Elevation & shadow tokens.
+   The Figma elevation scale defines shadow *opacity* levels against a near-black
+   ink (#2D2D2D). Geometry below is Thread DS's applied web treatment. */
+:root{
+  --shadow-ink: 45, 45, 45; /* #2D2D2D */
+
+  --shadow-none: none;
+  --shadow-xx-light: 0 1px 2px 0 rgba(var(--shadow-ink), 0.06);
+  --shadow-x-light: 0 1px 3px 0 rgba(var(--shadow-ink), 0.16);
+  --shadow-light: 0 2px 8px 0 rgba(var(--shadow-ink), 0.12);
+  --shadow-medium: 0 4px 16px 0 rgba(var(--shadow-ink), 0.16);
+  --shadow-heavy: 0 8px 28px 0 rgba(var(--shadow-ink), 0.20);
+
+  /* Overlay / scrim opacities (elevation collection) */
+  --elevation-light: rgba(var(--shadow-ink), 0.40);
+  --elevation-medium: rgba(var(--shadow-ink), 0.60);
+  --elevation-heavy: rgba(var(--shadow-ink), 0.80);
+}

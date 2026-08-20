@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Policy & spend{% endblock %}
+{% block content %}
+<div style="display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <div style="font:var(--text-display-supporting);letter-spacing:var(--text-display-supporting-ls)">Two ledgers, kept apart</div>
+    <div style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary)">So nobody has to untangle your holiday from your supplier visit later.</div>
+  </div>
+
+  <div class="alert alert-info" style="border-color:var(--border-action-accent-primary);border-left-width:3px">
+    <span class="alert-title">Two items need Priya's approval</span>
+    <span style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary);text-wrap:pretty">The Tuesday supplier dinner comes to £61 a head against a £55 cap — Karaköy has little under that on a Tuesday and both mill contacts are attending. The Saturday late checkout is £34. I've drafted the note; you just press send.</span>
+  </div>
+
+  {% macro ledger(title, rows, total, total_label, footnote) %}
+  <div style="background:var(--surface-base-raised);border:1px solid var(--border-base-subtle);padding:20px;display:flex;flex-direction:column;gap:12px">
+    <div style="font:var(--text-headline-section);letter-spacing:var(--text-headline-section-ls)">{{ title }}</div>
+    <div style="display:flex;flex-direction:column">
+      {% for row in rows %}
+      <div style="display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--border-base-subtle)">
+        <span style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);{{ 'color:var(--text-base-accent)' if row|length > 2 else 'color:var(--text-base-secondary)' }}">{{ row[0] }}</span>
+        <span style="font:var(--text-body-paragraph-bold);letter-spacing:var(--text-body-paragraph-bold-ls);white-space:nowrap;{{ 'color:var(--text-base-accent)' if row|length > 2 }}">{{ row[1] }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding-top:4px">
+      <span style="font:var(--text-label-status-small);letter-spacing:var(--text-label-status-small-ls);color:var(--text-base-secondary);text-transform:uppercase">{{ total_label }}</span>
+      <span style="font:var(--text-display-compact);letter-spacing:var(--text-display-compact-ls)">{{ total }}</span>
+    </div>
+    <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary);text-wrap:pretty">{{ footnote }}</span>
+  </div>
+  {% endmacro %}
+
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+    {{ ledger("ASOS pays", company_rows, company_total, "Company total", company_footnote) }}
+    {{ ledger("You pay", personal_rows, personal_total, "Your total", personal_footnote) }}
+  </div>
+
+  <div style="background:var(--surface-base-raised);border:1px solid var(--border-base-subtle)">
+    {% for item in policy_items %}
+    <details {{ 'open' if loop.index0 == 0 }} style="border-bottom:{{ '' if loop.last else '1px solid var(--border-base-subtle)' }}">
+      <summary style="padding:16px 20px;cursor:pointer;font:var(--text-body-paragraph-bold);letter-spacing:var(--text-body-paragraph-bold-ls);list-style:none;display:flex;justify-content:space-between;align-items:center">
+        <span>{{ item.title }}</span>
+        <i data-lucide="chevron-down" style="width:18px;height:18px;color:var(--icon-base-secondary)"></i>
+      </summary>
+      <div style="padding:0 20px 18px;font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary);text-wrap:pretty">{{ item.content }}</div>
+    </details>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

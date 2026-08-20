@@ -1,0 +1,17 @@
+/* Thread DS — Shape tokens (corner radius & border width). */
+:root{
+  /* Corner radius */
+  --shape-corner-radius-none: 0px;
+  --shape-corner-radius-x-small: 4px;
+  --shape-corner-radius-small: 8px;
+  --shape-corner-radius-medium: 16px;
+  --shape-corner-radius-large: 20px;
+  --shape-corner-radius-x-large: 24px;
+  --shape-corner-radius-full: 100px;   /* pill / round */
+
+  /* Border width */
+  --border-width-none: 0px;
+  --border-width-hairline: 1px;
+  --border-width-thin: 2px;
+  --border-width-thick: 8px;
+}

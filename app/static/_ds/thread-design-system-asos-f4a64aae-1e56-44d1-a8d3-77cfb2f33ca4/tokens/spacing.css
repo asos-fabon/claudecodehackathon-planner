@@ -1,0 +1,55 @@
+/* Thread DS — Spacing & padding tokens. Base scale in px. */
+:root{
+  /* Scale (raw step values) */
+  --scale-0: 0px;
+  --scale-25: 1px;
+  --scale-50: 2px;
+  --scale-100: 4px;
+  --scale-200: 8px;
+  --scale-250: 10px;
+  --scale-300: 12px;
+  --scale-350: 14px;
+  --scale-400: 16px;
+  --scale-450: 18px;
+  --scale-500: 20px;
+  --scale-550: 22px;
+  --scale-600: 24px;
+  --scale-700: 28px;
+  --scale-750: 30px;
+  --scale-800: 32px;
+  --scale-850: 36px;
+  --scale-900: 40px;
+  --scale-950: 44px;
+  --scale-1000: 48px;
+  --scale-1200: 60px;
+  --scale-1240: 72px;
+  --scale-1280: 80px;
+  --scale-1400: 100px;
+
+  /* Gaps — horizontal & vertical share the same ramp */
+  --gap-none: 0px;
+  --gap-xx-small: 2px;
+  --gap-x-small: 4px;
+  --gap-small: 8px;
+  --gap-medium: 12px;
+  --gap-large: 16px;
+  --gap-x-large: 24px;
+  --gap-xx-large: 32px;
+  --gap-xxx-large: 40px;
+
+  /* Component padding — button */
+  --padding-button-vertical-small: 4px;
+  --padding-button-vertical-medium: 8px;
+  --padding-button-vertical-default: 12px;
+  --padding-button-vertical-large: 16px;
+  --padding-button-horizontal-small: 8px;
+  --padding-button-horizontal-medium: 8px;
+  --padding-button-horizontal-default: 16px;
+  --padding-button-horizontal-large: 16px;
+
+  /* Component padding — select / input field */
+  --padding-field-horizontal-small: 8px;
+  --padding-field-horizontal-medium: 12px;
+  --padding-field-horizontal-large: 16px;
+  --padding-field-vertical-default: 16px;
+}

@@ -1,0 +1,6 @@
+/* Thread DS — Futura PT (brand typeface, not negotiable) */
+@font-face{font-family:'Futura PT';src:url('../assets/fonts/futura_pt_400_book_reg.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Futura PT';src:url('../assets/fonts/futura_pt_500_medium_reg.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Futura PT';src:url('../assets/fonts/futura_pt_600_demi_reg.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:'Futura PT';src:url('../assets/fonts/futura_pt_700_heavy_reg.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Futura PT';src:url('../assets/fonts/futura_pt_800_bold_reg.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap}

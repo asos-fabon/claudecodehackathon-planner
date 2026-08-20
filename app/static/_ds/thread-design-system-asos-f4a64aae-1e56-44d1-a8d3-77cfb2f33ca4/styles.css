@@ -1,0 +1,10 @@
+/* Thread Design System (ASOS) — global CSS entry point.
+   Consumers link this one file. It @imports the full token closure + fonts. */
+@import "./tokens/fonts.css";
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/shape.css";
+@import "./tokens/elevation.css";
+@import "./tokens/layout.css";
+@import "./tokens/base.css";

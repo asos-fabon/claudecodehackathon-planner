@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Companions{% endblock %}
+{% block content %}
+<div style="display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <div style="font:var(--text-display-supporting);letter-spacing:var(--text-display-supporting-ls)">Who's on this trip</div>
+    <div style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary)">Each person changes what I'm allowed to book and who the bill goes to.</div>
+  </div>
+
+  <div class="alert alert-warning">
+    <span class="alert-title">Mara isn't an ASOS employee</span>
+    <span style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary);text-wrap:pretty">Policy P-04 §6 lets her share your booked room at no cost to the company, and travel with you on personal transport. Her flight, her meals outside work hours and any activity you two do together sit on your own card — I've kept them in a separate ledger so expenses stay clean.</span>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    {% for pe in people %}
+    <div style="background:var(--surface-base-raised);border:1px solid var(--border-base-subtle);padding:20px;display:grid;grid-template-columns:48px minmax(0,1fr) 200px;gap:20px;align-items:start">
+      <div style="width:48px;height:48px;border-radius:100px;display:flex;align-items:center;justify-content:center;font:var(--text-headline-subsection);letter-spacing:.6px;{{ 'background:var(--surface-decision-warning);color:#D67100' if pe.tone == 'warn' else 'background:var(--surface-base-invert);color:var(--text-base-on-dark)' }}">{{ pe.initials }}</div>
+      <div style="display:flex;flex-direction:column;gap:8px;min-width:0">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span style="font:var(--text-headline-section);letter-spacing:var(--text-headline-section-ls)">{{ pe.name }}</span>
+          <span class="chip {{ 'chip-approval' if pe.tone == 'warn' else 'chip-locked' }}">{{ pe.tag }}</span>
+        </div>
+        <div style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary);text-wrap:pretty">{{ pe.role }}</div>
+        <div style="display:flex;flex-direction:column;gap:4px;margin-top:4px">
+          {% for note in pe.notes %}
+          <div style="display:flex;gap:8px;align-items:baseline">
+            <span style="width:4px;height:4px;border-radius:100px;background:var(--border-base-default);flex:none;transform:translateY(-3px)"></span>
+            <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);text-wrap:pretty">{{ note }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;padding:12px;background:var(--surface-base-elevated);border:1px solid var(--border-base-subtle)">
+        <span style="font:var(--text-label-status-small);letter-spacing:var(--text-label-status-small-ls);color:var(--text-base-secondary);text-transform:uppercase">Billing</span>
+        <span style="font:var(--text-body-paragraph-bold);letter-spacing:var(--text-body-paragraph-bold-ls)">{{ pe.billing }}</span>
+        <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary);text-wrap:pretty">{{ pe.billingNote }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div style="display:flex;gap:12px">
+    <button class="btn btn-secondary btn-lg">Add someone to the trip</button>
+  </div>
+</div>
+{% endblock %}

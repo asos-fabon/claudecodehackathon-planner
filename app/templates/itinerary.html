@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Itinerary{% endblock %}
+{% block content %}
+<div style="display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <div style="font:var(--text-display-supporting);letter-spacing:var(--text-display-supporting-ls)">Six days, drafted</div>
+      <div style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary)">Work is locked. Everything else you can drag, swap or tell me to redo.</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font:var(--text-label-status-small);letter-spacing:var(--text-label-status-small-ls);color:var(--text-base-secondary);text-transform:uppercase">Layout</span>
+      <div style="display:flex;border:1px solid var(--border-action-secondary);background:var(--surface-base-raised)">
+        {% for key, label in [('timeline','Timeline'), ('board','Day board')] %}
+        <a href="/itinerary?layout={{ key }}" style="padding:9px 16px;cursor:pointer;font:var(--text-label-button-small);letter-spacing:var(--text-label-button-small-ls);{{ 'background:var(--surface-base-invert);color:var(--text-base-on-dark)' if layout == key else 'background:transparent;color:var(--text-base-secondary)' }}">{{ label }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  {% macro policy_chip(it) %}
+    <span class="chip chip-{{ it.tone }}">{{ it.policy }}</span>
+  {% endmacro %}
+
+  {% if layout == 'timeline' %}
+  <div style="display:flex;flex-direction:column;gap:8px">
+    {% for d in days %}
+    <div style="display:grid;grid-template-columns:132px minmax(0,1fr);gap:24px;padding:22px 0;border-top:1px solid var(--border-base-default)">
+      <div style="display:flex;flex-direction:column;gap:6px;position:sticky;top:88px;align-self:start">
+        <div style="font:var(--text-display-compact);letter-spacing:var(--text-display-compact-ls);line-height:1">{{ d.dayNum }}</div>
+        <div style="font:var(--text-headline-subsection);letter-spacing:var(--text-headline-subsection-ls);text-transform:uppercase">{{ d.dayName }}</div>
+        <div style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary);text-wrap:pretty">{{ d.mode }}</div>
+        <div style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">{{ d.weather }}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        {% for it in d['items'] %}
+        <div style="display:flex;gap:20px;padding:18px 20px;background:var(--surface-base-raised);border:1px solid {{ 'var(--border-base-default)' if it.tone == 'locked' else 'var(--border-base-subtle)' }}">
+          <div style="display:flex;flex-direction:column;gap:2px;min-width:72px">
+            <span style="font:var(--text-headline-subsection);letter-spacing:var(--text-headline-subsection-ls)">{{ it.time }}</span>
+            <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">{{ it.dur }}</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <span style="font:var(--text-body-product-description);letter-spacing:var(--text-body-product-description-ls)">{{ it.title }}</span>
+              <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">{{ it.place }}</span>
+            </div>
+            <div style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary);text-wrap:pretty">{{ it.note }}</div>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:2px">
+              {{ policy_chip(it) }}
+              {% if it.who %}<span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">{{ it.who }}</span>{% endif %}
+              {% if it.transport %}<span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">{{ it.transport }}</span>{% endif %}
+            </div>
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:flex-start;gap:6px">
+            <span style="font:var(--text-headline-subsection);letter-spacing:var(--text-headline-subsection-ls);white-space:nowrap">{{ it.cost }}</span>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div style="display:grid;grid-template-columns:repeat(6,minmax(196px,1fr));gap:12px;overflow-x:auto;padding-bottom:12px;align-items:start">
+    {% for d in days %}
+    <div style="display:flex;flex-direction:column;gap:10px;min-width:0">
+      <div style="display:flex;flex-direction:column;gap:4px;padding:14px;background:var(--surface-base-invert);color:var(--text-base-on-dark)">
+        <span style="font:var(--text-headline-subsection);letter-spacing:var(--text-headline-subsection-ls);text-transform:uppercase">{{ d.dayName }} {{ d.dayNum }}</span>
+        <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:rgba(255,255,255,.7);text-wrap:pretty">{{ d.mode }}</span>
+        <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:rgba(255,255,255,.55)">{{ d.weather }}</span>
+      </div>
+      {% for it in d['items'] %}
+      <div style="display:flex;flex-direction:column;gap:6px;padding:14px;background:var(--surface-base-raised);border:1px solid {{ 'var(--border-base-default)' if it.tone == 'locked' else 'var(--border-base-subtle)' }}">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+          <span style="font:var(--text-headline-mini);letter-spacing:var(--text-headline-mini-ls)">{{ it.time }}</span>
+          <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">{{ it.cost }}</span>
+        </div>
+        <div style="font:var(--text-body-paragraph-bold);letter-spacing:var(--text-body-paragraph-bold-ls);text-wrap:pretty">{{ it.title }}</div>
+        <div style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary);text-wrap:pretty">{{ it.place }}</div>
+        {{ policy_chip(it) }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

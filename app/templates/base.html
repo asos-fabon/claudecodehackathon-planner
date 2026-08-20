@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detour · {% block title %}Bleisure Planner{% endblock %}</title>
+{% set base = "/static/_ds/" ~ ds %}
+<link rel="stylesheet" href="{{ base }}/tokens/fonts.css">
+<link rel="stylesheet" href="{{ base }}/tokens/colors.css">
+<link rel="stylesheet" href="{{ base }}/tokens/typography.css">
+<link rel="stylesheet" href="{{ base }}/tokens/spacing.css">
+<link rel="stylesheet" href="{{ base }}/tokens/shape.css">
+<link rel="stylesheet" href="{{ base }}/tokens/elevation.css">
+<link rel="stylesheet" href="{{ base }}/tokens/layout.css">
+<link rel="stylesheet" href="{{ base }}/tokens/base.css">
+<link rel="stylesheet" href="{{ base }}/styles.css">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--surface-base-canvas); font-family: var(--font-family-base); color: var(--text-base-primary); }
+  a { color: var(--link-accent); text-decoration: none; }
+  a:hover { color: var(--text-base-primary); }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #DDDDDD; }
+
+  /* --- reusable component styles built on Thread tokens --- */
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; cursor:pointer;
+    font:var(--text-label-button-small); letter-spacing:var(--text-label-button-small-ls);
+    padding:0 20px; height:40px; border:1px solid transparent; white-space:nowrap; }
+  .btn-lg { height:48px; }
+  .btn-sm { height:40px; padding:0 14px; }
+  .btn.full { width:100%; }
+  .btn-primary { background:var(--surface-base-invert); color:var(--text-base-on-dark); }
+  .btn-accent { background:var(--surface-action-accent-primary); color:#fff; }
+  .btn-secondary { background:var(--surface-base-raised); color:var(--text-base-primary); border-color:var(--border-action-secondary); }
+  .btn-tertiary { background:transparent; color:var(--text-base-secondary); }
+  .btn:hover { opacity:.92; }
+
+  .chip { font:var(--text-label-tag); letter-spacing:var(--text-label-tag-ls); padding:4px 9px; border:1px solid; }
+  .chip-company  { border-color:var(--border-action-accent-primary); color:var(--text-base-accent); background:var(--surface-base-raised); }
+  .chip-personal { border-color:var(--border-action-secondary); color:var(--text-base-secondary); background:var(--surface-base-raised); }
+  .chip-approval { border-color:#D67100; color:#D67100; background:var(--surface-decision-warning); }
+  .chip-locked   { border-color:var(--border-base-default); color:var(--text-base-primary); background:var(--surface-base-elevated); }
+
+  .nav-item { display:flex; align-items:center; gap:12px; padding:11px 20px; cursor:pointer; letter-spacing:.6px;
+    color:var(--text-base-secondary); border-left:3px solid transparent; font:var(--text-body-paragraph); }
+  .nav-item:hover { background:var(--surface-action-secondary-hover); }
+  .nav-item.active { color:var(--text-base-primary); border-left-color:var(--surface-base-invert);
+    font:var(--text-body-paragraph-bold); }
+
+  .alert { padding:16px 18px; display:flex; flex-direction:column; gap:4px; border:1px solid; }
+  .alert-title { font:var(--text-body-paragraph-bold); letter-spacing:var(--text-body-paragraph-bold-ls); }
+  .alert-warning { background:var(--surface-decision-warning); border-color:#E9C99A; }
+  .alert-info { background:var(--surface-base-elevated); border-color:var(--border-base-subtle); }
+  .section-msg { padding:18px 20px; display:flex; flex-direction:column; gap:6px; border:1px solid; }
+  .section-msg-accent { background:var(--surface-base-raised); border-color:var(--border-action-accent-primary); border-left-width:3px; }
+  .section-msg-neutral { background:var(--surface-base-raised); border-color:var(--border-base-subtle); }
+  .section-msg-title { font:var(--text-headline-subsection); letter-spacing:var(--text-headline-subsection-ls); }
+  .section-msg-action { font:var(--text-body-paragraph-bold); color:var(--link-accent); margin-top:4px; }
+
+  .icon-btn { display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px;
+    background:var(--surface-base-invert); color:var(--text-base-on-dark); border:none; cursor:pointer; }
+</style>
+</head>
+<body>
+<div style="min-height:100vh;background:var(--surface-base-canvas);display:flex;flex-direction:column">
+
+  <!-- Header -->
+  <div style="height:64px;flex:none;background:var(--surface-base-raised);border-bottom:1px solid var(--border-base-subtle);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:20">
+    <div style="display:flex;align-items:center;gap:20px">
+      <span style="font:600 22px/26px var(--font-family-base);letter-spacing:2px">ASOS</span>
+      <span style="width:1px;height:24px;background:var(--border-base-subtle)"></span>
+      <div style="display:flex;align-items:baseline;gap:10px">
+        <span style="font:var(--text-headline-page);letter-spacing:1.6px;text-transform:uppercase">Detour</span>
+        <span style="font:var(--text-label-status-small);letter-spacing:var(--text-label-status-small-ls);color:var(--text-base-secondary);text-transform:uppercase">Business travel, well spent</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px">
+      {% if show_connectors %}
+      <div style="display:flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--border-action-secondary);background:var(--surface-base-raised)">
+        <span style="width:6px;height:6px;border-radius:100px;background:var(--surface-action-accent-primary)"></span>
+        <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls)">Connected: Outlook · Slack · Concur · Workday</span>
+      </div>
+      {% endif %}
+      <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">Jo Karlsson · Design, Womenswear</span>
+      <div style="width:32px;height:32px;border-radius:100px;background:var(--surface-base-invert);color:var(--text-base-on-dark);display:flex;align-items:center;justify-content:center;font:var(--text-label-status-small);letter-spacing:.6px">JK</div>
+    </div>
+  </div>
+
+  <div style="flex:1;display:grid;align-items:start;grid-template-columns:232px minmax(0,1fr){% if show_agent_panel %} 372px{% endif %}">
+
+    <!-- Left nav -->
+    <div style="position:sticky;top:64px;height:calc(100vh - 64px);background:var(--surface-base-raised);border-right:1px solid var(--border-base-subtle);padding:24px 0;display:flex;flex-direction:column;gap:28px">
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div style="padding:0 20px 10px;font:var(--text-label-status-small);letter-spacing:var(--text-label-status-small-ls);color:var(--text-base-secondary);text-transform:uppercase">This trip</div>
+        {% for n in nav_items %}
+        <a href="/{{ n.key }}" class="nav-item {{ 'active' if n.key == active_nav else '' }}">
+          <i data-lucide="{{ n.icon }}" style="width:18px;height:18px"></i>
+          <span style="flex:1">{{ n.label }}</span>
+          {% if n.badge %}<span style="font:var(--text-label-status-small);letter-spacing:var(--text-label-status-small-ls);color:var(--text-base-secondary)">{{ n.badge }}</span>{% endif %}
+        </a>
+        {% endfor %}
+      </div>
+      <div style="margin-top:auto;padding:16px 20px;border-top:1px solid var(--border-base-subtle);display:flex;flex-direction:column;gap:8px">
+        <div style="font:var(--text-headline-mini);letter-spacing:var(--text-headline-mini-ls);text-transform:uppercase;color:var(--text-base-secondary)">Plan status</div>
+        <div style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls)">Draft · not yet submitted</div>
+        <div style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">Two items need your line manager's nod before I can book them.</div>
+        <button class="btn btn-primary full">Submit for approval</button>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div style="padding:32px 36px 64px;display:flex;flex-direction:column;gap:28px;min-height:calc(100vh - 64px)">
+      {% block content %}{% endblock %}
+    </div>
+
+    <!-- Agent chat panel -->
+    {% if show_agent_panel %}
+    <div style="position:sticky;top:64px;height:calc(100vh - 64px);background:var(--surface-base-raised);border-left:1px solid var(--border-base-subtle);display:flex;flex-direction:column">
+      <div style="padding:20px;border-bottom:1px solid var(--border-base-subtle);display:flex;align-items:center;gap:12px;flex:none">
+        <div style="width:36px;height:36px;border-radius:100px;background:var(--surface-action-accent-primary);display:flex;align-items:center;justify-content:center">
+          <i data-lucide="compass" style="width:18px;height:18px;color:#fff"></i>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1px">
+          <span style="font:var(--text-headline-subsection);letter-spacing:var(--text-headline-subsection-ls)">Your planner</span>
+          <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">Reading your calendar, live</span>
+        </div>
+      </div>
+
+      <div id="chat-log" style="flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px">
+        {% for m in messages %}
+        <div class="chat-row" data-from="{{ m.from }}" style="display:flex;justify-content:{{ 'flex-end' if m.from == 'user' else 'flex-start' }}">
+          <div class="chat-bubble" style="max-width:280px;padding:12px 14px;font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);text-wrap:pretty;{{ 'background:var(--surface-base-invert);color:var(--text-base-on-dark)' if m.from == 'user' else 'background:var(--surface-base-elevated);border:1px solid var(--border-base-subtle);color:var(--text-base-primary)' }}">{{ m.text }}</div>
+        </div>
+        {% endfor %}
+        <div id="chat-thinking" style="display:none;align-items:center;gap:10px;padding:4px 0">
+          <span class="spinner" style="width:14px;height:14px;border:2px solid var(--border-base-default);border-top-color:var(--text-base-primary);border-radius:100px;display:inline-block;animation:spin .7s linear infinite"></span>
+          <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">Checking policy and Thursday's weather…</span>
+        </div>
+      </div>
+
+      <div style="flex:none;border-top:1px solid var(--border-base-subtle);padding:16px 20px 20px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          {% for q in quick_replies %}
+          <div class="quick-reply" style="font:var(--text-label-tag);letter-spacing:var(--text-label-tag-ls);padding:7px 12px;border:1px solid var(--border-action-secondary);cursor:pointer;background:var(--surface-base-raised)">{{ q }}</div>
+          {% endfor %}
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;border:1px solid var(--border-base-default);padding:4px 4px 4px 12px">
+          <input id="chat-input" placeholder="Ask me to change something…" style="flex:1;border:none;outline:none;font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);background:transparent;color:var(--text-base-primary);padding:8px 0" />
+          <button id="chat-send" class="icon-btn" aria-label="Send message"><i data-lucide="arrow-up" style="width:18px;height:18px"></i></button>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<style>@keyframes spin { to { transform: rotate(360deg); } }
+  .quick-reply:hover { background:var(--surface-action-secondary-hover); border-color:var(--border-base-default); }</style>
+<script>
+  if (window.lucide) lucide.createIcons();
+
+  const log = document.getElementById("chat-log");
+  const thinking = document.getElementById("chat-thinking");
+  const input = document.getElementById("chat-input");
+
+  function bubble(from, text) {
+    const row = document.createElement("div");
+    row.className = "chat-row";
+    row.style.cssText = "display:flex;justify-content:" + (from === "user" ? "flex-end" : "flex-start");
+    const b = document.createElement("div");
+    b.className = "chat-bubble";
+    b.style.cssText = "max-width:280px;padding:12px 14px;font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);text-wrap:pretty;" +
+      (from === "user" ? "background:var(--surface-base-invert);color:var(--text-base-on-dark)"
+                       : "background:var(--surface-base-elevated);border:1px solid var(--border-base-subtle);color:var(--text-base-primary)");
+    b.textContent = text;
+    row.appendChild(b);
+    log.insertBefore(row, thinking);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  async function send(text) {
+    text = (text || input.value).trim();
+    if (!text) return;
+    input.value = "";
+    bubble("user", text);
+    thinking.style.display = "flex";
+    log.scrollTop = log.scrollHeight;
+    try {
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+      });
+      const data = await res.json();
+      // small delay so the "thinking" state reads, matching the prototype
+      setTimeout(() => {
+        thinking.style.display = "none";
+        bubble("agent", data.agent.text);
+      }, 900);
+    } catch (e) {
+      thinking.style.display = "none";
+      bubble("agent", "Sorry — I couldn't reach the planner just now.");
+    }
+  }
+
+  document.getElementById("chat-send").addEventListener("click", () => send());
+  input.addEventListener("keydown", (e) => { if (e.key === "Enter") send(); });
+  document.querySelectorAll(".quick-reply").forEach((q) =>
+    q.addEventListener("click", () => send(q.textContent)));
+</script>
+</body>
+</html>

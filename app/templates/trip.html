@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Trip{% endblock %}
+{% block content %}
+<div style="display:flex;flex-direction:column;gap:24px">
+
+  <!-- Hero -->
+  <div style="position:relative;background:var(--surface-base-invert);padding:36px 40px;display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span class="chip" style="border-color:var(--surface-action-accent-primary);color:#fff;background:transparent;text-transform:uppercase">Bleisure eligible</span>
+      <span style="font:var(--text-label-status-small);letter-spacing:var(--text-label-status-small-ls);color:rgba(255,255,255,.7);text-transform:uppercase">Supplier visits · Ref TR-4471</span>
+    </div>
+    <div style="font:var(--text-display-hero);letter-spacing:var(--text-display-hero-ls);color:var(--text-base-on-dark);line-height:1">Istanbul</div>
+    <div style="font:var(--text-body-large);letter-spacing:var(--text-body-large-ls);color:rgba(255,255,255,.82);max-width:640px">Mon 31 Aug — Sat 5 Sep · three days with two mills, then three days that are yours. Mara joins Tuesday evening.</div>
+    <div style="display:flex;gap:36px;margin-top:10px">
+      {% for h in hero_stats %}
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div style="font:var(--text-display-compact);letter-spacing:var(--text-display-compact-ls);color:var(--text-base-on-dark)">{{ h.value }}</div>
+        <div style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:rgba(255,255,255,.65);text-transform:uppercase">{{ h.label }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Suggestion -->
+  <div class="section-msg section-msg-accent">
+    <div style="display:flex;align-items:center;gap:8px">
+      <i data-lucide="sparkles" style="width:18px;height:18px;color:var(--link-accent)"></i>
+      <span class="section-msg-title">Stay to Saturday — it's cheaper for everyone</span>
+    </div>
+    <div style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary);text-wrap:pretty">Your last mill wrap-up ends 15:30 Wednesday. If you fly home Saturday afternoon instead, the fare drops £58 and the two extra room nights fall to you at £96 each. Mara's flight lands Tuesday 21:05, so you'd have two full days together plus a slow Saturday morning.</div>
+    <a href="/itinerary" class="section-msg-action">View the three added days →</a>
+  </div>
+
+  <!-- Signals -->
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:baseline;justify-content:space-between">
+      <div style="font:var(--text-headline-section);letter-spacing:var(--text-headline-section-ls)">What I read before planning</div>
+      <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">Nothing here was typed in by you</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+      {% for s in signals %}
+      <div style="display:grid;grid-template-columns:36px 1fr;gap:14px;padding:16px;background:var(--surface-base-raised);border:1px solid var(--border-base-subtle)">
+        <div style="width:36px;height:36px;border:1px solid var(--border-base-subtle);display:flex;align-items:center;justify-content:center;background:var(--surface-base-elevated)">
+          <i data-lucide="{{ s.icon }}" style="width:18px;height:18px"></i>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div style="display:flex;align-items:baseline;gap:8px">
+            <span style="font:var(--text-headline-subsection);letter-spacing:var(--text-headline-subsection-ls)">{{ s.title }}</span>
+            <span style="font:var(--text-label-status-small);letter-spacing:var(--text-label-status-small-ls);color:var(--text-base-secondary);text-transform:uppercase">{{ s.source }}</span>
+          </div>
+          <div style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary);text-wrap:pretty">{{ s.body }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Fixed work blocks -->
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <div style="font:var(--text-headline-section);letter-spacing:var(--text-headline-section-ls)">Fixed by work — I planned around these</div>
+    <div style="background:var(--surface-base-raised);border:1px solid var(--border-base-subtle)">
+      {% for w in work_blocks %}
+      <div style="display:grid;grid-template-columns:104px 1fr auto;gap:20px;align-items:center;padding:16px 20px;{{ '' if loop.last else 'border-bottom:1px solid var(--border-base-subtle)' }}">
+        <div style="display:flex;flex-direction:column">
+          <span style="font:var(--text-headline-subsection);letter-spacing:var(--text-headline-subsection-ls)">{{ w.day }}</span>
+          <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">{{ w.time }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <span style="font:var(--text-body-product-description);letter-spacing:var(--text-body-product-description-ls)">{{ w.title }}</span>
+          <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">{{ w.detail }}</span>
+        </div>
+        <span style="font:var(--text-label-status-small);letter-spacing:var(--text-label-status-small-ls);color:var(--text-base-secondary);text-transform:uppercase">{{ w.lock }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div style="display:flex;gap:12px">
+    <a href="/itinerary" class="btn btn-accent btn-lg">Build my six days</a>
+    <button class="btn btn-secondary btn-lg">Keep it work only</button>
+  </div>
+</div>
+{% endblock %}

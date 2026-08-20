@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}What to wear{% endblock %}
+{% block content %}
+<div style="display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <div style="font:var(--text-display-supporting);letter-spacing:var(--text-display-supporting-ls)">What to wear, what to pack</div>
+    <div style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary)">Early September in Istanbul: 29°C and humid by day, 22°C after dark, one likely shower Thursday.</div>
+  </div>
+
+  <div class="section-msg section-msg-neutral">
+    <div style="display:flex;align-items:center;gap:8px">
+      <i data-lucide="info" style="width:18px;height:18px;color:var(--icon-base-secondary)"></i>
+      <span class="section-msg-title">Two things worth knowing before you pack</span>
+    </div>
+    <div style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary);text-wrap:pretty">Mill floors are hot, dusty and full of trolleys — closed-toe flats, nothing you'd mourn. And if you visit a working mosque on your free days, both of you will want covered shoulders and knees; women are asked to cover their hair, so a light scarf in your bag saves borrowing one at the door.</div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    {% for o in outfits %}
+    <div style="background:var(--surface-base-raised);border:1px solid var(--border-base-subtle);display:grid;grid-template-columns:120px minmax(0,1fr) 220px;gap:20px;align-items:stretch">
+      <div style="padding:18px;display:flex;flex-direction:column;gap:2px;justify-content:center;{{ 'background:var(--surface-base-invert);color:var(--text-base-on-dark)' if o.tone == 'work' else 'background:var(--surface-base-elevated);color:var(--text-base-primary)' }}">
+        <span style="font:var(--text-headline-subsection);letter-spacing:var(--text-headline-subsection-ls);text-transform:uppercase">{{ o.dayName }}</span>
+        <span style="font:var(--text-display-compact);letter-spacing:var(--text-display-compact-ls);line-height:1">{{ o.dayNum }}</span>
+        <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);opacity:.7">{{ o.temp }}</span>
+      </div>
+      <div style="padding:18px 0;display:flex;flex-direction:column;gap:6px">
+        <span style="font:var(--text-body-product-description);letter-spacing:var(--text-body-product-description-ls)">{{ o.headline }}</span>
+        <span style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary);text-wrap:pretty">{{ o.detail }}</span>
+        <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary);text-wrap:pretty">{{ o.because }}</span>
+      </div>
+      <div style="padding:18px;background:var(--surface-base-elevated);border-left:1px solid var(--border-base-subtle);display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start">
+        {% for piece in o.pieces %}
+        <span style="font:var(--text-label-tag);letter-spacing:var(--text-label-tag-ls);padding:5px 10px;border:1px solid var(--border-action-secondary);background:var(--surface-base-raised)">{{ piece }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div style="background:var(--surface-base-raised);border:1px solid var(--border-base-subtle);padding:24px;display:flex;flex-direction:column;gap:14px">
+    <div style="font:var(--text-headline-section);letter-spacing:var(--text-headline-section-ls)">Pack list — one cabin bag, six days</div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+      {% for grp in packing %}
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font:var(--text-headline-mini);letter-spacing:var(--text-headline-mini-ls);text-transform:uppercase;color:var(--text-base-secondary)">{{ grp.group }}</span>
+        {% for pi in grp['items'] %}
+        <span style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls)">{{ pi }}</span>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

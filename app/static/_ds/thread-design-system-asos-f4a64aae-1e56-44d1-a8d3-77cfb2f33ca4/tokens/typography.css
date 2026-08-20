@@ -1,0 +1,100 @@
+/* Thread DS — Typography tokens. Brand typeface: Futura PT.
+   Extracted from the Tokens • Thread DS "Typography Tokens" page.
+   Emphasis weight across the system is 600 (Demi); body copy is 400 (Book). */
+:root{
+  --font-family-base: 'Futura PT', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Font weights — mapped to the loaded Futura PT webfont files. */
+  --font-weight-book: 400;
+  --font-weight-medium: 500;
+  --font-weight-demi: 600;   /* the system's emphasis weight */
+  --font-weight-heavy: 700;
+  --font-weight-bold: 800;
+
+  /* Font size scale (px) */
+  --font-size-3xs: 10;
+  --font-size-2xs: 12;
+  --font-size-xs: 14;
+  --font-size-sm: 16;
+  --font-size-md: 18;
+  --font-size-lg: 24;
+  --font-size-xl: 28;
+  --font-size-2xl: 36;
+  --font-size-3xl: 60;
+
+  /* Letter-spacing scale (px) */
+  --letter-spacing-none: 0px;
+  --letter-spacing-xs: 0.4px;
+  --letter-spacing-sm: 0.6px;
+  --letter-spacing-md: 0.8px;
+  --letter-spacing-lg: 1px;
+  --letter-spacing-xl: 1.2px;
+  --letter-spacing-2xl: 1.5px;
+}
+
+/* ── Text styles. Each var is a CSS `font` shorthand;
+      pair with the matching --*-ls token for letter-spacing. ── */
+:root{
+  /* Display — hero banners, campaign headlines, full-bleed editorial */
+  --text-display-hero: 600 60px/72px var(--font-family-base);        --text-display-hero-ls: 1.5px;
+  --text-display-lead: 600 36px/44px var(--font-family-base);        --text-display-lead-ls: 1.2px;
+  --text-display-supporting: 600 28px/36px var(--font-family-base);  --text-display-supporting-ls: 1.2px;
+  --text-display-compact: 600 24px/30px var(--font-family-base);     --text-display-compact-ls: 1.2px;
+
+  /* Headline — page and section titles */
+  --text-headline-page-caps: 600 18px/24px var(--font-family-base);  --text-headline-page-caps-ls: 0.8px;
+  --text-headline-page: 600 18px/24px var(--font-family-base);       --text-headline-page-ls: 0.8px;
+  --text-headline-section: 600 16px/22px var(--font-family-base);    --text-headline-section-ls: 0.6px;
+  --text-headline-subsection: 600 14px/20px var(--font-family-base); --text-headline-subsection-ls: 0.8px;
+  --text-headline-mini: 600 12px/16px var(--font-family-base);       --text-headline-mini-ls: 1px;
+
+  /* Body — product descriptions, editorial copy, general content */
+  --text-body-large: 400 16px/22px var(--font-family-base);          --text-body-large-ls: 0.6px;
+  --text-body-paragraph: 400 14px/20px var(--font-family-base);      --text-body-paragraph-ls: 0.6px;
+  --text-body-paragraph-bold: 600 14px/20px var(--font-family-base); --text-body-paragraph-bold-ls: 0.6px;
+  --text-body-small: 400 12px/16px var(--font-family-base);          --text-body-small-ls: 0.8px;
+  --text-body-product-description-large: 400 18px/24px var(--font-family-base); --text-body-product-description-large-ls: 0.6px;
+  --text-body-product-description: 600 16px/22px var(--font-family-base);       --text-body-product-description-ls: 0.4px;
+  /* body/compact — iOS & Android ONLY. Do not use on mWeb/dWeb. */
+  --text-body-compact: 600 12px/16px var(--font-family-base);        --text-body-compact-ls: 0.8px;
+
+  /* Label — buttons, form labels, tags, tabs, status */
+  --text-label-button: 600 16px/24px var(--font-family-base);        --text-label-button-ls: 0.6px;
+  --text-label-button-small: 600 14px/20px var(--font-family-base);  --text-label-button-small-ls: 0.8px;
+  --text-label-button-description: 400 14px/20px var(--font-family-base); --text-label-button-description-ls: 0.4px;
+  --text-label-field-group: 600 14px/20px var(--font-family-base);   --text-label-field-group-ls: 0.8px;
+  --text-label-field-option: 400 16px/22px var(--font-family-base);  --text-label-field-option-ls: 0.4px;
+  --text-label-field-select-large: 400 16px/22px var(--font-family-base); --text-label-field-select-large-ls: 0.4px;
+  --text-label-tag: 600 12px/16px var(--font-family-base);           --text-label-tag-ls: 1px;
+  --text-label-tag-emphasis: 600 12px/16px var(--font-family-base);  --text-label-tag-emphasis-ls: 1px;
+  --text-label-tag-emphasis-large: 600 14px/20px var(--font-family-base); --text-label-tag-emphasis-large-ls: 0.8px;
+  --text-label-tag-large: 600 14px/20px var(--font-family-base);     --text-label-tag-large-ls: 0.8px;
+  --text-label-tab: 600 14px/20px var(--font-family-base);           --text-label-tab-ls: 0.8px;
+  --text-label-tab-small: 600 12px/16px var(--font-family-base);     --text-label-tab-small-ls: 1px;
+  --text-label-status: 600 14px/20px var(--font-family-base);        --text-label-status-ls: 0.8px;
+  --text-label-status-small: 600 10px/14px var(--font-family-base);  --text-label-status-small-ls: 1.2px;
+  --text-label-accordion: 600 16px/22px var(--font-family-base);     --text-label-accordion-ls: 0.4px;
+
+  /* label/field input & label/field select are PLATFORM-SPECIFIC.
+     Default below is the mWeb / dWeb value (14px); use the -app tokens for iOS & Android (12px). */
+  --text-label-field-input: 600 14px/20px var(--font-family-base);   --text-label-field-input-ls: 0.8px;
+  --text-label-field-input-app: 600 12px/16px var(--font-family-base); --text-label-field-input-app-ls: 1px;
+  --text-label-field-select: 600 14px/20px var(--font-family-base);  --text-label-field-select-ls: 0.8px;
+  --text-label-field-select-app: 600 12px/16px var(--font-family-base); --text-label-field-select-app-ls: 1px;
+
+  /* Field — input values, placeholders, helper text, errors, counters */
+  --text-field-value: 400 16px/22px var(--font-family-base);         --text-field-value-ls: 0.4px;
+  --text-field-placeholder: 400 16px/22px var(--font-family-base);   --text-field-placeholder-ls: 0.4px;
+  --text-field-description: 400 16px/22px var(--font-family-base);   --text-field-description-ls: 0.4px;
+  --text-field-helper: 400 16px/22px var(--font-family-base);        --text-field-helper-ls: 0.4px;
+  --text-field-helper-error: 600 12px/16px var(--font-family-base);  --text-field-helper-error-ls: 1px;
+  --text-field-counter: 600 12px/16px var(--font-family-base);       --text-field-counter-ls: 1px;
+
+  /* Link — sized to match adjacent body copy */
+  --text-link-large: 400 16px/22px var(--font-family-base);          --text-link-large-ls: 0.4px;
+  --text-link: 400 14px/20px var(--font-family-base);                --text-link-ls: 0.6px;
+  --text-link-small: 400 12px/16px var(--font-family-base);          --text-link-small-ls: 0.8px;
+
+  /* Small print — legal copy, disclaimers. Use sparingly. */
+  --text-small-print: 600 10px/14px var(--font-family-base);         --text-small-print-ls: 1.2px;
+}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Eat & see{% endblock %}
+{% block content %}
+<div style="display:flex;flex-direction:column;gap:22px">
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <div style="font:var(--text-display-supporting);letter-spacing:var(--text-display-supporting-ls)">Where to eat, what to see</div>
+    <div style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary)">Chosen for who you're with, how far it is from that day's meeting, and what your budget allows. Every card opens in Google Maps.</div>
+  </div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    {% for f in filters %}
+    <a href="/places?filter={{ f }}" style="padding:8px 14px;cursor:pointer;font:var(--text-label-tag);letter-spacing:var(--text-label-tag-ls);border:1px solid {{ 'var(--border-base-invert)' if f == active_filter else 'var(--border-action-secondary)' }};background:{{ 'var(--surface-base-invert)' if f == active_filter else 'var(--surface-base-raised)' }};color:{{ 'var(--text-base-on-dark)' if f == active_filter else 'var(--text-base-primary)' }}">{{ f }}</a>
+    {% endfor %}
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+    {% for p in places %}
+    <div style="background:var(--surface-base-raised);border:1px solid var(--border-base-subtle);display:flex;flex-direction:column">
+      <div style="position:relative;height:176px;background:var(--surface-base-elevated);display:flex;align-items:center;justify-content:center">
+        <i data-lucide="image" style="width:28px;height:28px;color:var(--icon-base-secondary);opacity:.5"></i>
+        <div style="position:absolute;top:12px;left:12px;padding:4px 9px;background:var(--surface-decision-overlay-white);backdrop-filter:blur(6px);font:var(--text-label-status-small);letter-spacing:var(--text-label-status-small-ls);color:var(--text-base-primary);text-transform:uppercase">{{ p.kind }}</div>
+      </div>
+      <div style="padding:18px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+            <span style="font:var(--text-body-product-description);letter-spacing:var(--text-body-product-description-ls)">{{ p.name }}</span>
+            <span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)">{{ p.area }}</span>
+          </div>
+          <span style="font:var(--text-headline-subsection);letter-spacing:var(--text-headline-subsection-ls);white-space:nowrap">{{ p.price }}</span>
+        </div>
+        <div style="font:var(--text-body-paragraph);letter-spacing:var(--text-body-paragraph-ls);color:var(--text-base-secondary);text-wrap:pretty">{{ p.why }}</div>
+        <div style="display:flex;flex-direction:column;gap:6px;padding:12px;background:var(--surface-base-elevated);border:1px solid var(--border-base-subtle)">
+          <div style="display:flex;align-items:center;gap:8px"><i data-lucide="users" style="width:14px;height:14px;color:var(--icon-base-secondary)"></i><span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls)">{{ p.who }}</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><i data-lucide="{{ p.transportIcon }}" style="width:14px;height:14px;color:var(--icon-base-secondary)"></i><span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls)">{{ p.transport }}</span></div>
+          <div style="display:flex;align-items:center;gap:8px"><i data-lucide="shield-check" style="width:14px;height:14px;color:var(--icon-base-secondary)"></i><span style="font:var(--text-body-small);letter-spacing:var(--text-body-small-ls)">{{ p.policy }}</span></div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:center">
+          <a href="{{ p.maps_url }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;font:var(--text-body-paragraph-bold);letter-spacing:var(--text-body-paragraph-bold-ls);color:var(--link-accent)"><i data-lucide="map-pin" style="width:14px;height:14px"></i><span>Open in Google Maps</span></a>
+          <a href="{{ p.photos_url }}" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;font:var(--text-body-small);letter-spacing:var(--text-body-small-ls);color:var(--text-base-secondary)"><i data-lucide="image" style="width:14px;height:14px"></i><span>See photos</span></a>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:2px">
+          <button class="btn btn-{{ p.ctaType }} btn-sm">{{ p.cta }}</button>
+          <button class="btn btn-tertiary btn-sm">Show me another</button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

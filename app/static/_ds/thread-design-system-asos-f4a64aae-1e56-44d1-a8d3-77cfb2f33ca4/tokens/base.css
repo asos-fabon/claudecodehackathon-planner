@@ -1,0 +1,10 @@
+/* Thread DS — base reset.
+   border-box everywhere. Thread DS components signal selected / focused
+   states by widening a border (hairline 1px → thin 2px); under the default
+   content-box that widening would grow the element's outer box by 2px and
+   shift its neighbours. This reset keeps state changes visually stable. */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Links inherit the brand palette rather than the browser default. */
+a { color: var(--link-accent); }
+a:hover { color: var(--link-primary); }
